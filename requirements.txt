@@ -1,0 +1,5 @@
+imageio==2.6.1
+images2gif==1.0.1
+numpy==1.17.4
+opencv-python==4.1.2.30
+Pillow==6.2.1
