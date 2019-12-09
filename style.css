@@ -8,3 +8,15 @@ body{
     border-style: dashed;
     border-width: 1px;
 }
+#imgData {
+    margin: 50px auto;
+    height: 200px;
+    display: block;
+    width: 50%;
+    text-align: left;
+}
+.imgBtn {
+    display: block;
+    margin: 50px auto;
+
+}

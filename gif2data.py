@@ -44,7 +44,7 @@ def convert_gif_to_black_and_wite(filename):
                     t = r*r + g**2 + b**2
                     if t<= (200**2)*3 and  a>100:
                         arr[i, j] = np.array([0, 0, 0, 255])
-                        data_frame.append([i, j])
+                        data_frame.append([j, i])
                     else:
                         arr[i, j] = np.array([255, 255, 255, 255])
             A.append(arr)
