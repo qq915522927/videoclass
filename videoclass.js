@@ -13,46 +13,159 @@ window.onload = function(){
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HIGHT;
     var context = canvas.getContext("2d");
-    init_grid(context);
-    // section2(canvas, context);
-    play(context);
+    getPlayBook();
+    // convertToPrintPng(canvas, context);
+    // play(context);
 
+}
+
+let getPlayBook = function () {
+    var canvas = document.getElementById('mycanvas');
+    var context = canvas.getContext("2d");
+    GRID_HEIGHT = 33;
+    GRID_WIDTH = 50;
+    CELL_WIDTH = 5;
+    loadJson('basketball.gif_data.json',function (data) {
+        let sheet = 0;
+        let interval = setInterval(function () {
+            if(sheet>=4){
+                clearInterval(interval);
+                return;
+            }
+            clearBoard(context);
+            try{
+                let nRow = 5;
+                let nCol = 4;
+                for (let i = 0; i < nRow; i++) {
+                    for (let j = 0; j < nCol; j++) {
+                        START_POINT = {x: 30 + j* (CELL_WIDTH * GRID_WIDTH + 20), y:30 + (i*(GRID_HEIGHT*CELL_WIDTH+10)) };
+                        init_grid(context);
+                        // play(context);
+                        let n = sheet*(nRow*nCol) +i*nCol + j;
+                        console.log(n);
+                        context.fillText(n.toString(), START_POINT.x, START_POINT.y +3);
+                        pic = data[n];
+                        for(let i=0; i<pic.length;i++){
+                            fill_pix(pic[i][0]-1, pic[i][1]-1, context, "red");
+                        }
+                    }
+                }
+            }finally {
+
+                downloadImg(canvas);
+                sheet ++;
+            }
+
+        }, 1000)
+
+    })
+    // play(context);
+}
+
+const convertToPrintPng = function (canvas, context) {
+    loadJson('basketball.gif_data.json', function (data) {
+        let j = 0;
+        let interval = setInterval(function () {
+            if(j>data.length){
+                clearInterval(interval);
+                return
+            }
+
+            clearBoard(context);
+            drawRuler(context);
+            init_grid(context);
+            let imgStr = encodeImage(data[j])
+            context.font = "12px Arial";
+            let lineW = 150;
+            for (let i = 0; i*lineW < imgStr.length; i++) {
+                let line = imgStr.slice(0+i*lineW, (i+1) * lineW);
+
+                context.fillText(line, START_POINT.x, (GRID_HEIGHT + 5 + i) * CELL_WIDTH);
+            }
+
+            pic = data[j];
+            for(let i=0; i<pic.length;i++){
+                fill_pix(pic[i][0]-1, pic[i][1]-1, context, '#fee');
+            }
+            if(j%3 ==0) {
+                downloadImg(canvas);
+            }
+            j++;
+        }, 200)
+
+    })
+}
+const downloadImg = function (canvas) {
+    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    window.location.href = image;
 }
 const play = function (context) {
     loadJson('basketball.gif_data.json', function (data) {
+    //  loadJson('dance.gif_data.json', function (data) {
         var nframe = 0;
         var interval = setInterval(function () {
             if(nframe>=data.length){
-                clearInterval(interval);
-                return;
+                nframe=0;
             }
             console.log("Play "+ nframe);
             draw_one(data[nframe], context);
             nframe ++;
-        }, 200)
+        }, 100)
     })
 
 }
-const init_grid = function (context) {
+const init_grid = function (context, lineNum) {
     context.beginPath()
     context.moveTo( START_POINT.x, START_POINT.y);
     context.setLineDash([1, 2]);
     context.lineWidth = 0.5;
     context.strokeStyle = 'black';
     for(let i=0; i<GRID_WIDTH+1; i++){
+        let start_x = START_POINT.x + i*CELL_WIDTH
         context.beginPath()
-        context.moveTo(START_POINT.x + i*CELL_WIDTH, START_POINT.y);
+        context.moveTo(start_x, START_POINT.y);
         context.lineTo(START_POINT.x + i*CELL_WIDTH, START_POINT.y + GRID_HEIGHT*CELL_WIDTH);
         context.closePath();
-        context.stroke()
+        context.stroke();
+        if(lineNum){
+            if((i+1)%1==0){
+                context.fillText((i+1).toString(), start_x +CELL_WIDTH/3, START_POINT.y - 10)
+            }
+        }
     }
     for (let i=0; i<GRID_HEIGHT+1;i++){
+        start_y = START_POINT.y + i*CELL_WIDTH
         context.beginPath()
         context.moveTo(START_POINT.x, START_POINT.y + i*CELL_WIDTH);
-        context.lineTo(START_POINT.x + GRID_WIDTH*CELL_WIDTH, START_POINT.y + i*CELL_WIDTH);
+        context.lineTo(START_POINT.x + GRID_WIDTH*CELL_WIDTH, start_y);
         context.closePath();
         context.stroke()
+        if(lineNum){
+            if((i+1)%1==0){
+                context.fillText((i+1).toString(),  START_POINT.x - 20, start_y + CELL_WIDTH/2)
+            }
+        }
 
+    }
+}
+const drawRuler = function (context) {
+    for(let i=0; i<GRID_WIDTH+1; i++) {
+        if ((i + 1) % 2 == 0) {
+            let start_x = START_POINT.x + i * CELL_WIDTH
+            context.save();
+            context.fillStyle = "#eef";
+            context.fillRect(start_x, START_POINT.y, CELL_WIDTH, GRID_HEIGHT * CELL_WIDTH)
+            context.restore();
+        }
+    }
+    for (let i=0; i<GRID_HEIGHT+1;i++) {
+        start_y = START_POINT.y + i * CELL_WIDTH
+        if ((i + 1) % 2 == 0) {
+            context.save();
+            context.fillStyle = "#efe";
+            context.fillRect(START_POINT.x, start_y, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH)
+            context.restore();
+        }
     }
 }
 
@@ -121,7 +234,7 @@ const get_decoded_char = function (code) {
     return String.fromCharCode(parseInt(code) + 96);
 
 }
-const declode_txt = function (encoded) {
+const decodeTxt = function (encoded) {
     let res = "";
     let reg = /\s/g;
     encoded = encoded.replace(reg, "");
@@ -134,7 +247,7 @@ const declode_txt = function (encoded) {
     return res;
 
 }
-const encode_txt = function (text) {
+const encodeTxt = function (text) {
     let res = "";
     for (let i = 0; i < text.length; i++) {
         res += get_encoded_char_for_char(text[i]);
@@ -183,7 +296,7 @@ const section2 = function (canvas, context) {
         beginStroke();
         let pos = drawDot(e.clientX, e.clientY, canvas, context);
         grid[pos.x][pos.y] = 1;
-        console.log(encodeImage(getImagePointsArr(grid)));
+        // console.log(encodeImage(getImagePointsArr(grid)));
     }
     canvas.onmousemove = function (e) {
         e.preventDefault();
