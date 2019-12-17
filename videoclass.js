@@ -9,14 +9,50 @@ var isMouseDown = false;
 var penColor = "red";
 
 window.onload = function(){
+    let charTable = document.getElementById('charTable');
+    generateCharTable(charTable);
     var canvas = document.getElementById('mycanvas');
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HIGHT;
     var context = canvas.getContext("2d");
-    getPlayBook();
+    // getPlayBook();
     // convertToPrintPng(canvas, context);
     // play(context);
 
+}
+let generateCharTable = function(tableEle){
+    let nRow = 10;
+    let nCol = 6;
+    for (let i = 0; i <nRow ; i++) {
+        let tr = document.createElement('tr');
+
+        for (let j = 0; j < nCol; j++) {
+
+            let td = document.createElement('td');
+            tr.appendChild(td);
+        }
+        tableEle.appendChild(tr);
+    }
+    for (let i = 97; i < 124 ; i++) {
+        let logCol = Math.ceil((i-96)/nRow);
+        let col = logCol + (logCol-1);
+        let row = (i-96) % nRow;
+        if(row ==0){
+            row = nRow;
+        }
+        console.log(col);
+        let tr = tableEle.querySelector("tr:nth-child(" + row.toString() + ")");
+        let td1 = tr.querySelector("td:nth-child("+col.toString()+")");
+        let td2 = tr.querySelector("td:nth-child("+(col+1).toString()+")");
+        if(i!=123){
+            td1.innerText = String.fromCharCode(i);
+            td2.innerText = _convertToEncodedNum(i-96);
+        } else {
+            td1.innerText = "空格";
+            td2.innerText = "00";
+        }
+
+    }
 }
 
 let getPlayBook = function () {
@@ -64,7 +100,7 @@ let getPlayBook = function () {
 
 const convertToPrintPng = function (canvas, context) {
     loadJson('basketball.gif_data.json', function (data) {
-        let j = 0;
+        let j = data.length-2;
         let interval = setInterval(function () {
             if(j>data.length){
                 clearInterval(interval);
@@ -87,9 +123,7 @@ const convertToPrintPng = function (canvas, context) {
             for(let i=0; i<pic.length;i++){
                 fill_pix(pic[i][0]-1, pic[i][1]-1, context, '#fee');
             }
-            if(j%3 ==0) {
                 downloadImg(canvas);
-            }
             j++;
         }, 200)
 
