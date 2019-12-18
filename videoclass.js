@@ -11,10 +11,11 @@ var penColor = "red";
 window.onload = function(){
     let charTable = document.getElementById('charTable');
     generateCharTable(charTable);
-    var canvas = document.getElementById('mycanvas');
-    canvas.width = CANVAS_WIDTH;
-    canvas.height = CANVAS_HIGHT;
-    var context = canvas.getContext("2d");
+    // var canvas = document.getElementById('mycanvas');
+    // canvas.width = CANVAS_WIDTH;
+    // canvas.height = CANVAS_HIGHT;
+    // var context = canvas.getContext("2d");
+    section2();
     // getPlayBook();
     // convertToPrintPng(canvas, context);
     // play(context);
@@ -304,16 +305,37 @@ const setGrid = function (pic, grid) {
     }
 }
 
-const section2 = function (canvas, context) {
+const clearPaintBoard = function (context, gridArray) {
+    clearBoard(context);
+    init_grid(context);
+    for (let i = 0; i < gridArray.length; i++) {
+        for (let j = 0; j < gridArray[i].length; j++) {
+            gridArray[i][j] = 0;
+
+        }
+
+    }
+    
+}
+const section2 = function () {
+    let canvas = document.getElementById('canvasPaint');
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HIGHT;
+    let context = canvas.getContext("2d");
+    init_grid(context);
     let imgDataInput = document.getElementById("imgData");
     let decodeImgBth = document.getElementById("decodeImg");
     let encodeImgBth = document.getElementById("encodeImg");
+    let clearBtn = document.getElementById("clearBoard");
     var grid = new Array(GRID_WIDTH);
     for (let i = 0; i < grid.length; i++) {
         grid[i] = new Array(GRID_HEIGHT);
 
     }
     setGrid([], grid);
+    clearBtn.onclick = function(e){
+        clearPaintBoard(context, grid);
+    }
     decodeImgBth.onclick = function (e) {
         clearBoard(context);
         init_grid(context);

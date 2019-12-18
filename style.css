@@ -13,7 +13,7 @@ body{
     background-color: bisque;
 
 }
-#mycanvas {
+canvas {
     display: block;
     margin: 50px auto;
     border-style: dashed;
