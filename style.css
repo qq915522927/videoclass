@@ -1,33 +1,122 @@
 body{
     width: 100%;
     height: 100%;
+    color: #336633;
+    font-family: "Adobe Fan Heiti Std";
+    font-size: 30px;
 }
 .content{
     width: 80%;
-    border: antiquewhite 1px solid;
     margin: 0 auto;
-}
+    padding-bottom: 300px;
+}G
 .section{
     width: 100%;
-    height: 800px;
-    background-color: bisque;
 
 }
 canvas {
     display: block;
     margin: 50px auto;
-    border-style: dashed;
-    border-width: 1px;
+}
+h1,h2,h3{
+    margin-top: 90px;
+    color: #FF6666;
+    font-family: "Adobe Fan Heiti Std";
+}
+h1 {
+    font-size: 50px;
+}
+h2 {
+    font-size: 40px;
+}
+h3 {
+    font-size: 30px;
+}
+p{
+    color: #336633;
+    font-size: 30px;
+}
+img {
+    width: 300px;
+
+}
+img:nth-of-type(1){
+    width: 700px;
+    float: right;
+}
+img:nth-of-type(2){
+    width: 700px;
+    float: right;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+table td{
+    border: 1px solid #a2a9b1;
+    padding: 10px 30px;
+}
+table th{
+    border: 1px solid #a2a9b1;
+    padding: 10px 30px;
+    background-color: bisque;
+}
+a {
+    text-decoration: none;
+    color:#336633;
+}
+.msTable td{
+
+    padding: 5px 10px;
+}
+.msTable th{
+    padding: 5px 10px;
+}
+button {
+    margin: 0px 30px;
+    background-color: #FF6666;
+    color: white;
+    float: left;
+}
+.imgBtn{
+    position: relative;
+    top: -80px;
+    right: -120px;
+}
+textarea {
+    margin: 0;
+    font-family: "Adobe Fan Heiti Std";
+    font-size: 30px;
+    color: #336633;
+    background-color: bisque;
+    border: none;
+    height: auto;
+    overflow: visible;
 }
 #imgData {
-    margin: 50px auto;
-    height: 200px;
-    display: block;
-    width: 50%;
+    float: right;
     text-align: left;
+    width: 100%;
+    height: 400px;
 }
-.imgBtn {
-    display: block;
-    margin: 50px auto;
-
+#textDecoder{
+    width: 100%;
+    padding: 30px 20px;
+    background-color: #FF6666;
+}
+#textDecoder textarea{
+    width: 100%;
+}
+.textBtn {
+    margin: 2px;
+    position: relative;
+    left: -2px;
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
 }

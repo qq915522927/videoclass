@@ -1,36 +1,38 @@
 
-const CANVAS_HIGHT = 900;
-const CANVAS_WIDTH= 1200;
-var CELL_WIDTH = 20;
+const CANVAS_HIGHT = 600;
+const CANVAS_WIDTH= 800;
+var CELL_WIDTH = 15;
 var GRID_WIDTH = 50;
 var GRID_HEIGHT = 33;
 var START_POINT = {x: 30, y: 30};
 var isMouseDown = false;
 var penColor = "red";
+var STOP = false;
 
 window.onload = function(){
     let charTable = document.getElementById('charTable');
     generateCharTable(charTable);
-    // var canvas = document.getElementById('mycanvas');
-    // canvas.width = CANVAS_WIDTH;
-    // canvas.height = CANVAS_HIGHT;
-    // var context = canvas.getContext("2d");
+    section1();
     section2();
-    // getPlayBook();
-    // convertToPrintPng(canvas, context);
-    // play(context);
+    section3();
 
 }
 let generateCharTable = function(tableEle){
-    let nRow = 10;
-    let nCol = 6;
+    let nRow = 6;
+    let nCol = 10;
     for (let i = 0; i <nRow ; i++) {
         let tr = document.createElement('tr');
 
         for (let j = 0; j < nCol; j++) {
 
-            let td = document.createElement('td');
-            tr.appendChild(td);
+            if(j%2!=0){
+                let td = document.createElement('td');
+                tr.appendChild(td);
+            } else{
+                let th = document.createElement('th');
+                tr.appendChild(th);
+
+            }
         }
         tableEle.appendChild(tr);
     }
@@ -43,8 +45,8 @@ let generateCharTable = function(tableEle){
         }
         console.log(col);
         let tr = tableEle.querySelector("tr:nth-child(" + row.toString() + ")");
-        let td1 = tr.querySelector("td:nth-child("+col.toString()+")");
-        let td2 = tr.querySelector("td:nth-child("+(col+1).toString()+")");
+        let td1 = tr.querySelector(":nth-child("+col.toString()+")");
+        let td2 = tr.querySelector(":nth-child("+(col+1).toString()+")");
         if(i!=123){
             td1.innerText = String.fromCharCode(i);
             td2.innerText = _convertToEncodedNum(i-96);
@@ -98,6 +100,20 @@ let getPlayBook = function () {
     })
     // play(context);
 }
+const section1 = function () {
+    let decodedInput = document.getElementById("decodedText");
+    let encodedInput = document.getElementById("encodedText");
+    let  encodeBtn= document.getElementById("encodeTxtBtn");
+    let decodeBtn = document.getElementById("decodeTxtBtn");
+    decodeBtn.onclick = function () {
+        decodedInput.value = decodeTxt(encodedInput.value);
+    }
+    encodeBtn.onclick = function () {
+        encodedInput.value = encodeTxt(decodedInput.value);
+
+    }
+
+}
 
 const convertToPrintPng = function (canvas, context) {
     loadJson('basketball.gif_data.json', function (data) {
@@ -134,11 +150,13 @@ const downloadImg = function (canvas) {
     let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
     window.location.href = image;
 }
-const play = function (context) {
-    loadJson('basketball.gif_data.json', function (data) {
-    //  loadJson('dance.gif_data.json', function (data) {
+const play = function (context, file) {
+    loadJson(file, function (data) {
         var nframe = 0;
         var interval = setInterval(function () {
+            if(STOP){
+                clearInterval(interval);
+            }
             if(nframe>=data.length){
                 nframe=0;
             }
@@ -190,6 +208,9 @@ const drawRuler = function (context) {
             context.save();
             context.fillStyle = "#eef";
             context.fillRect(start_x, START_POINT.y, CELL_WIDTH, GRID_HEIGHT * CELL_WIDTH)
+            context.fillRect(start_x, START_POINT.y, CELL_WIDTH, GRID_HEIGHT * CELL_WIDTH)
+            context.fillStyle = "black";
+            context.fillText(i.toString(), START_POINT.x + i*CELL_WIDTH, START_POINT.y - 5);
             context.restore();
         }
     }
@@ -198,7 +219,9 @@ const drawRuler = function (context) {
         if ((i + 1) % 2 == 0) {
             context.save();
             context.fillStyle = "#efe";
-            context.fillRect(START_POINT.x, start_y, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH)
+            context.fillRect(START_POINT.x, start_y, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);
+            context.fillStyle = "black";
+            context.fillText(i.toString(), START_POINT.x - 20, START_POINT.y +i*CELL_WIDTH);
             context.restore();
         }
     }
@@ -209,6 +232,7 @@ const clearBoard = function (ctx) {
 }
 const draw_one = function(pic, ctx){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HIGHT);
+    drawRuler(ctx);
     init_grid(ctx);
     for(let i=0; i<pic.length;i++){
         fill_pix(pic[i][0], pic[i][1], ctx, penColor);
@@ -307,6 +331,7 @@ const setGrid = function (pic, grid) {
 
 const clearPaintBoard = function (context, gridArray) {
     clearBoard(context);
+    drawRuler(context);
     init_grid(context);
     for (let i = 0; i < gridArray.length; i++) {
         for (let j = 0; j < gridArray[i].length; j++) {
@@ -322,11 +347,14 @@ const section2 = function () {
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HIGHT;
     let context = canvas.getContext("2d");
+    drawRuler(context);
     init_grid(context);
     let imgDataInput = document.getElementById("imgData");
     let decodeImgBth = document.getElementById("decodeImg");
     let encodeImgBth = document.getElementById("encodeImg");
     let clearBtn = document.getElementById("clearBoard");
+    let ranIntP = document.getElementById("randInt");
+    ranIntP.innerText = getRanIntStr(120) + '...';
     var grid = new Array(GRID_WIDTH);
     for (let i = 0; i < grid.length; i++) {
         grid[i] = new Array(GRID_HEIGHT);
@@ -338,6 +366,7 @@ const section2 = function () {
     }
     decodeImgBth.onclick = function (e) {
         clearBoard(context);
+        drawRuler(context);
         init_grid(context);
         let pic = decodeImage(imgDataInput.value);
         draw_one(pic, context);
@@ -370,6 +399,15 @@ const section2 = function () {
         endStroke();
 
     }
+}
+
+const getRanIntStr = function (n) {
+    let res = ""
+    for (let i = 0; i < n; i++) {
+        res += Math.floor(Math.random()*10).toString();
+
+    }
+    return res;
 }
 
 const beginStroke = function () {
@@ -463,4 +501,34 @@ const _parseNum = function (num) {
     }
     return parseInt(num);
 
+}
+const section3 = function () {
+    let canvas = document.getElementById('canvasVideo');
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HIGHT;
+    let context = canvas.getContext("2d");
+    drawRuler(context);
+    init_grid(context);
+    let stopBtn = document.getElementById("stopVideo");
+    let startBtn = document.getElementById("startVideo");
+    let danceBtn = document.getElementById("danceVideo");
+    let ranIntP = document.getElementById("videoRanInt");
+    ranIntP.innerText = getRanIntStr(160) + '...';
+
+    startBtn.onclick = function (e) {
+        e.preventDefault();
+        STOP = false;
+        play(context, 'basketball.gif_data.json');
+
+    }
+    danceBtn.onclick = function (e) {
+        e.preventDefault();
+        STOP = false;
+        play(context, 'dance.gif_data.json');
+
+    }
+    stopBtn.onclick = function () {
+        STOP = true;
+
+    }
 }

@@ -11,10 +11,15 @@
     <div class="content">
         <div class="section" id="section1">
             <h1>看不懂的数字？</h1>
-            <img src="images/电报机.jpg" alt="">
+            <div class="clearfix">
+
+                <img src="images/电报机.jpg" alt="">
+            </div>
             <h2>想象一个场景？</h2>
             <p>怎样才能做到即使被老师发现了也不泄露小秘密呢？</p>
-            <img src="images/传纸条.jpg">
+            <div class="clearfix">
+                <img src="images/传纸条.jpg">
+            </div>
             <h3>方案</h3>
                 <ul>
                     <li>吞下去?</li>
@@ -24,17 +29,165 @@
                 </ul>
             <h2>用数字来作为暗号</h2>
             <table id="charTable"></table>
+            <h2>尝试用这张密码表来，破解下面的密码</h2>
+            <p>14 09 00 08 01 15 </p>
             <div>
-                <input id="decodedText" type="text">
-                <input id="encodedText" type="text">
-                <button id="encodeTxtBtn">加密文字</button>
-                <button id="decodeTxtBtn">解密文字</button>
+                <h3>密码破解器</h3>
+                <div id="textDecoder" class="clearfix">
+                    <div>
+
+                        <lable>你的话</lable><textarea id="decodedText" type="text"></textarea>
+                    </div>
+                    <div>
+                        <label>密码</label><textarea id="encodedText" type="text"></textarea>
+
+                    </div>
+                </div>
+                <button class="textBtn" id="encodeTxtBtn">加密文字</button>
+                <button class="textBtn" id="decodeTxtBtn">解密文字</button>
             </div>
             <h2>当然你还可以充分利用你的数学知识用更复杂的方式来加密文字</h2>
             <p>比如： a = 30+1, b = 30 + 2 ... 这是如果你看到31 你就知道解密的文字是a</p>
             <p>比如： a = 2*(30+1), b = 2(30 + 2)</p>
+            <h2>摩斯密码和电报机</h2>
+            <p>摩斯密码是用'.' 和 '——' 来加密文字的, 或者叫"滴"和"答", 如果在古代中国俗称"暗号"</p>
 
+            <table class="msTable">
 
+                <tbody><tr>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码</th>
+                    <th>字符</th>
+                    <th>代码
+                    </th></tr>
+                <tr>
+                    <th><a href="/wiki/A" title="A">A</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/f/f3/A_morse_code.ogg" class="internal" title="A morse code.ogg"><code>·-</code></a>
+                    </td>
+                    <th><a href="/wiki/B" title="B">B</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/b/b1/B_morse_code.ogg" class="internal" title="B morse code.ogg"><code>-···</code></a>
+                    </td>
+                    <th><a href="/wiki/C" title="C">C</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/2/25/C_morse_code.ogg" class="internal" title="C morse code.ogg"><code>-·-·</code></a>
+                    </td>
+                    <th><a href="/wiki/D" title="D">D</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/9/92/D_morse_code.ogg" class="internal" title="D morse code.ogg"><code>-··</code></a>
+                    </td>
+                    <th><a href="/wiki/E" title="E">E</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/e/e7/E_morse_code.ogg" class="internal" title="E morse code.ogg"><code>·</code></a>
+                    </td>
+                    <th><a href="/wiki/F" title="F">F</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/6/63/F_morse_code.ogg" class="internal" title="F morse code.ogg"><code>··-·</code></a>
+                    </td>
+                    <th><a href="/wiki/G" title="G">G</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/7/72/G_morse_code.ogg" class="internal" title="G morse code.ogg"><code>--·</code></a>
+                    </td></tr>
+                <tr>
+                    <th><a href="/wiki/H" title="H">H</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/9/93/H_morse_code.ogg" class="internal" title="H morse code.ogg"><code>····</code></a>
+                    </td>
+                    <th><a href="/wiki/I" title="I">I</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/d/d9/I_morse_code.ogg" class="internal" title="I morse code.ogg"><code>··</code></a>
+                    </td>
+                    <th><a href="/wiki/J" title="J">J</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/9/9e/J_morse_code.ogg" class="internal" title="J morse code.ogg"><code>·---</code></a>
+                    </td>
+                    <th><a href="/wiki/K" title="K">K</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/6/6a/K_morse_code.ogg" class="internal" title="K morse code.ogg"><code>-·-</code></a>
+                    </td>
+                    <th><a href="/wiki/L" title="L">L</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/a/a8/L_morse_code.ogg" class="internal" title="L morse code.ogg"><code>·-··</code></a>
+                    </td>
+                    <th><a href="/wiki/M" title="M">M</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/9/97/M_morse_code.ogg" class="internal" title="M morse code.ogg"><code>--</code></a>
+                    </td>
+                    <th><a href="/wiki/N" title="N">N</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/5/5a/N_morse_code.ogg" class="internal" title="N morse code.ogg"><code>-·</code></a>
+                    </td></tr>
+                <tr>
+                    <th><a href="/wiki/O" title="O">O</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/4/41/O_morse_code.ogg" class="internal" title="O morse code.ogg"><code>---</code></a>
+                    </td>
+                    <th><a href="/wiki/P" title="P">P</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/c/c6/P_morse_code.ogg" class="internal" title="P morse code.ogg"><code>·--·</code></a>
+                    </td>
+                    <th><a href="/wiki/Q" title="Q">Q</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/f/f0/Q_morse_code.ogg" class="internal" title="Q morse code.ogg"><code>--·-</code></a>
+                    </td>
+                    <th><a href="/wiki/R" title="R">R</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/e/ea/R_morse_code.ogg" class="internal" title="R morse code.ogg"><code>·-·</code></a>
+                    </td>
+                    <th><a href="/wiki/S" title="S">S</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/d/d8/S_morse_code.ogg" class="internal" title="S morse code.ogg"><code>···</code></a>
+                    </td>
+                    <th><a href="/wiki/T" title="T">T</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/b/ba/T_morse_code.ogg" class="internal" title="T morse code.ogg"><code>-</code></a>
+                    </td>
+                    <th><a href="/wiki/U" title="U">U</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/3/34/U_morse_code.ogg" class="internal" title="U morse code.ogg"><code>··-</code></a>
+                    </td></tr>
+                <tr>
+                    <th><a href="/wiki/V" title="V">V</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/3/37/V_morse_code.ogg" class="internal" title="V morse code.ogg"><code>···-</code></a>
+                    </td>
+                    <th><a href="/wiki/W" title="W">W</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/6/68/W_morse_code.ogg" class="internal" title="W morse code.ogg"><code>·--</code></a>
+                    </td>
+                    <th><a href="/wiki/X" title="X">X</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/b/be/X_morse_code.ogg" class="internal" title="X morse code.ogg"><code>-··-</code></a>
+                    </td>
+                    <th><a href="/wiki/Y" title="Y">Y</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/5/5d/Y_morse_code.ogg" class="internal" title="Y morse code.ogg"><code>-·--</code></a>
+                    </td>
+                    <th><a href="/wiki/Z" title="Z">Z</a>
+                    </th>
+                    <td><a href="//upload.wikimedia.org/wikipedia/commons/7/7a/Z_morse_code.ogg" class="internal" title="Z morse code.ogg"><code>--··</code></a>
+                    </td>
+                    <th>
+                    </th>
+                    <td>
+                    </td>
+                    <th>
+                    </th>
+                    <td>
+                    </td></tr></tbody></table>
+
+            <p>电报机是用摩斯密码来发消息的工具</p>
 
         </div>
         <div class="section" id="section2">
@@ -43,10 +196,40 @@
             <p>1814 1913 1914 2013 2113 2214 2220 2320 2321 2421 2521 2620 2621 2714 2720 2813 2814 2913 3013 3113 3114 </p>
             <h2>我们一起把它解密成图片吧</h2>
             <canvas id='canvasPaint'></canvas>
-            <input id="imgData" type="text">
             <button id="clearBoard" class="imgBtn">重画</button>
             <button id="decodeImg" class="imgBtn">解码图片</button>
             <button id="encodeImg" class="imgBtn">编码图片</button>
+            <div class="clearfix">
+                <textarea id="imgData" type="text"></textarea>
+            </div>
+            <h2>这样我们就从一串数字里得到了一个笑脸图片啦</h2>
+            <p>其实计算机， 手机中的图片都是由这样的一个个小方块组成的， 每个小方块又都可以由一串数字来表示，所以一整图片就是一大串数字</p>
+            <p id="randInt">其实计算机， 手机中的图片都是由这样的一个个小方块组成的， 每个小方块又都可以由一串数字来表示，所以一整服数字就是一大串数字</p>
+            <h2>我们一起来做个练习吧!</h2>
+            <p>现在大家把网格看成屏幕，然后把下方的一串数字破解成图片吧</p>
+            <p>规则：每4位数字表示一个点，前两位表示横坐标，后两位表示纵坐标， 纵坐标是从上往下的</p>
+        </div>
+        <div class="section" id="section3">
+            <h1>大家把所有的图片放在一起看看有什么发现？</h1>
+            <p>如果把这些连续的图片拼起来，按顺序得展示出来，就形成视频啦</p>
+            <canvas id='canvasVideo'></canvas>
+            <button id="startVideo" class="imgBtn">开始播放</button>
+            <button id="danceVideo" class="imgBtn">跳舞吧！</button>
+            <button id="stopVideo" class="imgBtn">停止</button>
+            <h2>所以视频其实和图片文字都一样啦，只是一串数字而已，只不过这串数字更加的长长长</h2>
+            <p id="videoRanInt"></p>
+        </div>
+        <div class="section" id="section4">
+            <h1>总结</h1>
+            <ul>
+                <li>我们可以用数字加密任何信息，包括文字， 图片， 视频， 音频</li>
+                <li>计算机， 手机中储存这些信息都是以数字的形式储存的，所以称他们为数字计算机</li>
+                <li>加密和解密的过程本质和英语翻译成汉语，汉语翻译成英语是一样的，只是这里成了数字翻译成图像， 图像翻译成数字，
+                    计算机只能读懂数字，所以我们把图像翻译成了数字给他。
+                </li>
+                <li>只要有一套规则（语法）我们就可以设计自己的加密方法啦！</li>
+            </ul>
+
         </div>
         <script src="videoclass.js"></script>
     </div>
